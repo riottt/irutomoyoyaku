@@ -1,0 +1,61 @@
+{
+  "common": {
+    "appName": "있어도 예약",
+    "description": "한국인 MZ세대를 위한 일본 레스토랑 예약 대행 서비스",
+    "nav": {
+      "home": "홈",
+      "restaurants": "레스토랑 목록",
+      "login": "로그인",
+      "signup": "회원가입",
+      "profile": "프로필",
+      "reservations": "예약 목록",
+      "logout": "로그아웃"
+    }
+  },
+  "auth": {
+    "email": "이메일",
+    "password": "비밀번호",
+    "name": "이름",
+    "phone": "전화번호",
+    "signin": {
+      "title": "로그인",
+      "description": "계정에 로그인해주세요",
+      "forgotPassword": "비밀번호를 잊으셨나요?",
+      "submit": "로그인",
+      "createAccount": "계정 만들기"
+    },
+    "signup": {
+      "title": "회원가입",
+      "description": "새로운 계정을 만들어주세요",
+      "submit": "가입하기",
+      "haveAccount": "로그인하기"
+    }
+  },
+  "restaurants": {
+    "search": {
+      "placeholder": "레스토랑 검색",
+      "filters": {
+        "cuisine": "요리 장르",
+        "price": "가격대",
+        "location": "지역"
+      }
+    },
+    "priceRange": {
+      "cheap": "저렴",
+      "moderate": "보통",
+      "expensive": "고급",
+      "luxury": "초고급"
+    }
+  },
+  "reservation": {
+    "date": "예약일",
+    "time": "예약시간",
+    "people": "인원",
+    "submit": "예약하기",
+    "status": {
+      "pending": "예약 대기",
+      "confirmed": "예약 확정",
+      "cancelled": "취소됨"
+    }
+  }
+}

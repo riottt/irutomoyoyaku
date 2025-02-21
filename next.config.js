@@ -1,3 +1,5 @@
+const withNextIntl = require('next-intl/plugin')()
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'export',
@@ -6,11 +8,11 @@ const nextConfig = {
   },
   images: {
     unoptimized: true,
-    domains: ['tgcpbvxqnyjnfxjcpbki.supabase.co'],
+    domains: ['tgcpbvxqnyjnfxjcpbki.supabase.co', 'images.unsplash.com'],
   },
   experimental: {
     serverActions: true,
   },
 };
 
-module.exports = nextConfig;
+module.exports = withNextIntl(nextConfig)

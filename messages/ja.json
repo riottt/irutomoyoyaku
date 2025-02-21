@@ -1,0 +1,61 @@
+{
+  "common": {
+    "appName": "いるとも予約",
+    "description": "韓国人MZ世代向けの日本のレストラン予約代行サービス",
+    "nav": {
+      "home": "ホーム",
+      "restaurants": "レストラン一覧",
+      "login": "ログイン",
+      "signup": "新規登録",
+      "profile": "プロフィール",
+      "reservations": "予約一覧",
+      "logout": "ログアウト"
+    }
+  },
+  "auth": {
+    "email": "メールアドレス",
+    "password": "パスワード",
+    "name": "名前",
+    "phone": "電話番号",
+    "signin": {
+      "title": "ログイン",
+      "description": "アカウントにログインしてください",
+      "forgotPassword": "パスワードをお忘れですか？",
+      "submit": "ログイン",
+      "createAccount": "アカウントを作成"
+    },
+    "signup": {
+      "title": "新規登録",
+      "description": "新しいアカウントを作成してください",
+      "submit": "登録",
+      "haveAccount": "ログインする"
+    }
+  },
+  "restaurants": {
+    "search": {
+      "placeholder": "レストランを検索",
+      "filters": {
+        "cuisine": "料理ジャンル",
+        "price": "価格帯",
+        "location": "エリア"
+      }
+    },
+    "priceRange": {
+      "cheap": "お手頃",
+      "moderate": "普通",
+      "expensive": "高級",
+      "luxury": "超高級"
+    }
+  },
+  "reservation": {
+    "date": "予約日",
+    "time": "予約時間",
+    "people": "人数",
+    "submit": "予約する",
+    "status": {
+      "pending": "予約待ち",
+      "confirmed": "予約確定",
+      "cancelled": "キャンセル"
+    }
+  }
+}

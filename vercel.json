@@ -1,0 +1,18 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "main": true,
+      "development": false
+    }
+  },
+  "crons": [
+    {
+      "path": "/api/cron/reminder",
+      "schedule": "0 9 * * *"
+    },
+    {
+      "path": "/api/cron/translation",
+      "schedule": "*/30 * * * *"
+    }
+  ]
+}
