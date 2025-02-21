@@ -1,11 +1,21 @@
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { ArrowLeft, Star } from "lucide-react";
-import Link from "next/link";
-import { restaurants } from "@/lib/restaurants";
+import { createServerSupabaseClient } from '@/lib/supabase-server'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import Link from 'next/link'
 
-export default function RestaurantsPage() {
+export default async function RestaurantsPage() {
+  const supabase = createServerSupabaseClient()
+  
+  const { data: restaurants, error } = await supabase
+    .from('restaurants')
+    .select('*')
+    .order('name', { ascending: true })
+
+  if (error) {
+    console.error('Error:', error)
+    return <div>エラーが発生しました。</div>
+  }
+
   return (
     <main className="min-h-screen bg-background py-8 px-4 md:px-8">
       <div className="max-w-7xl mx-auto">
@@ -20,32 +30,34 @@ export default function RestaurantsPage() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
-          {restaurants.map((restaurant) => (
+          {restaurants?.map((restaurant) => (
             <Card key={restaurant.id} className="group hover:shadow-lg transition-shadow duration-200">
-              <div className="h-48 overflow-hidden">
-                <img
-                  src={restaurant.image}
-                  alt={restaurant.nameKo}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              </div>
+              {restaurant.image_urls && restaurant.image_urls[0] && (
+                <div className="h-48 overflow-hidden">
+                  <img
+                    src={restaurant.image_urls[0]}
+                    alt={restaurant.name}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+              )}
               <CardHeader>
                 <CardTitle className="flex justify-between items-center">
-                  <span>{restaurant.nameKo}</span>
+                  <span>{restaurant.name}</span>
                   <span className="text-sm font-normal flex items-center gap-1">
                     <Star className="w-4 h-4 fill-yellow-400 stroke-yellow-400" />
-                    {restaurant.rating}
+                    {restaurant.average_rating}
                   </span>
                 </CardTitle>
-                <CardDescription className="line-clamp-2">{restaurant.descriptionKo}</CardDescription>
+                <CardDescription className="line-clamp-2">{restaurant.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="flex gap-2">
                   <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
-                    {restaurant.cuisine}
+                    {restaurant.cuisine_type}
                   </span>
                   <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
-                    {restaurant.price}
+                    {restaurant.price_range}
                   </span>
                 </div>
               </CardContent>
