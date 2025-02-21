@@ -37,14 +37,16 @@ export default function ReservationsPage() {
     loadReservations()
   }, [user, router])
 
-  const getStatusBadgeVariant = (status: string) => {
+  function getStatusBadgeVariant(status: string): 'default' | 'secondary' | 'destructive' | 'outline' {
     switch (status) {
-      case 'confirmed':
-        return 'success'
       case 'pending':
-        return 'warning'
+        return 'secondary'
+      case 'confirmed':
+        return 'default'
       case 'cancelled':
         return 'destructive'
+      case 'completed':
+        return 'outline'
       default:
         return 'secondary'
     }
