@@ -5,20 +5,35 @@ import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 import { useAuth } from '@/components/auth/auth-provider'
-import { getUserReservations } from '@/services/reservation'
+import { getUserReservations, cancelReservation } from '@/services/reservation'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { format } from 'date-fns'
 import { ja, ko } from 'date-fns/locale'
+import toast from '@/components/ui/toast'
+
+interface Reservation {
+  id: string
+  restaurant_id: string
+  user_id: string
+  date: string
+  time: string
+  number_of_people: number
+  status: 'pending' | 'confirmed' | 'cancelled' | 'completed'
+  restaurant: {
+    name: string
+    image_url: string
+  }
+}
 
 export default function ReservationsPage() {
   const t = useTranslations()
   const locale = useLocale()
   const router = useRouter()
   const { user } = useAuth()
-  const [reservations, setReservations] = useState<any[]>([])
+  const [reservations, setReservations] = useState<Reservation[]>([])
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -58,6 +73,28 @@ export default function ReservationsPage() {
     })
   }
 
+  async function handleCancelReservation(reservationId: string) {
+    if (!confirm(t('reservation.confirmCancel'))) return
+  
+    try {
+      setIsLoading(true)
+      await cancelReservation(reservationId)
+      await loadReservations()
+      toast({
+        title: t('reservation.cancelSuccess'),
+        variant: 'default',
+      })
+    } catch (error) {
+      console.error('Failed to cancel reservation:', error)
+      toast({
+        title: t('reservation.cancelError'),
+        variant: 'destructive',
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
   if (isLoading) {
     return (
       <div className="container mx-auto py-8">
@@ -91,11 +128,11 @@ export default function ReservationsPage() {
               <div className="flex gap-6">
                 <div className="relative h-24 w-24 rounded-lg overflow-hidden">
                   <Image
-                    src={reservation.restaurants.images[0]}
+                    src={reservation.restaurant.image_url}
                     alt={
                       locale === 'ja'
-                        ? reservation.restaurants.name
-                        : reservation.restaurants.name_ko
+                        ? reservation.restaurant.name
+                        : reservation.restaurant.name
                     }
                     fill
                     className="object-cover"
@@ -106,8 +143,8 @@ export default function ReservationsPage() {
                     <div>
                       <h3 className="text-lg font-semibold">
                         {locale === 'ja'
-                          ? reservation.restaurants.name
-                          : reservation.restaurants.name_ko}
+                          ? reservation.restaurant.name
+                          : reservation.restaurant.name}
                       </h3>
                       <p className="text-muted-foreground">
                         {formatDate(reservation.date)} {reservation.time}
