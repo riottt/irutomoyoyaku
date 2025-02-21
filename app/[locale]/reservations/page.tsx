@@ -28,6 +28,7 @@ export default function ReservationsPage() {
     }
 
     async function loadReservations() {
+      if (!user) return
       const data = await getUserReservations(user.id)
       setReservations(data)
       setIsLoading(false)

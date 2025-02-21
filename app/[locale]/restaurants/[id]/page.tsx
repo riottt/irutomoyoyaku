@@ -15,7 +15,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { StarIcon, MapPinIcon, ClockIcon } from '@radix-ui/react-icons'
+import { StarIcon, ClockIcon } from '@radix-ui/react-icons'
+import { MapPinIcon } from '@heroicons/react/24/outline'
 
 interface RestaurantPageProps {
   params: {
